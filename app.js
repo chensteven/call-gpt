@@ -9,6 +9,7 @@ const { StreamService } = require('./services/stream-service');
 const { TranscriptionService } = require('./services/transcription-service');
 const { TextToSpeechService } = require('./services/tts-service');
 const { recordingService } = require('./services/recording-service');
+const config = require('./config/config');  // Import the configuration
 
 const VoiceResponse = require('twilio').twiml.VoiceResponse;
 
@@ -59,7 +60,7 @@ app.ws('/connection', (ws) => {
         // Set RECORDING_ENABLED='true' in .env to record calls
         recordingService(ttsService, callSid).then(() => {
           console.log(`Twilio -> Starting Media Stream for ${streamSid}`.underline.red);
-          ttsService.generate({partialResponseIndex: null, partialResponse: 'Hi, this is Lifestooshort AI Agent. You can talk to me. How are you today?'}, 0);
+          ttsService.generate({partialResponseIndex: null, partialResponse: config.partialResponse}, 0);
         });
       } else if (msg.event === 'media') {
         transcriptionService.send(msg.media.payload);

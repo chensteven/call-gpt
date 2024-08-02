@@ -2,7 +2,7 @@ require('colors');
 const EventEmitter = require('events');
 const OpenAI = require('openai');
 const tools = require('../functions/function-manifest');
-const config = require('./config');  // Import the configuration
+const config = require('../config/config');  // Import the configuration
 
 // Import all functions included in function manifest
 // Note: the function name and file name must be the same
