@@ -49,6 +49,7 @@ app.ws('/connection', (ws) => {
     ws.on('message', function message(data) {
       const msg = JSON.parse(data);
       if (msg.event === 'start') {
+
         streamSid = msg.start.streamSid;
         callSid = msg.start.callSid;
         
@@ -58,7 +59,7 @@ app.ws('/connection', (ws) => {
         // Set RECORDING_ENABLED='true' in .env to record calls
         recordingService(ttsService, callSid).then(() => {
           console.log(`Twilio -> Starting Media Stream for ${streamSid}`.underline.red);
-          ttsService.generate({partialResponseIndex: null, partialResponse: 'Hello! I understand you\'re looking for a pair of AirPods, is that correct?'}, 0);
+          ttsService.generate({partialResponseIndex: null, partialResponse: 'Hi, this is Lifestooshort AI Agent. You can talk to me. How are you today?'}, 0);
         });
       } else if (msg.event === 'media') {
         transcriptionService.send(msg.media.payload);
